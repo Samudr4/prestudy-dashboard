@@ -1,8 +1,7 @@
-
 "use client";
 
 import * as React from "react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -242,7 +241,17 @@ export default function QuizListPage() {
                               </AlertDialogHeader>
                               <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => handleDeleteQuiz(quiz.id)} className={buttonVariants({ variant: "destructive" })}>
+                                <AlertDialogAction 
+                                  onClick={() => handleDeleteQuiz(quiz.id)} 
+                                  className={(() => {
+                                    try {
+                                      return buttonVariants({ variant: "destructive" });
+                                    } catch (error) {
+                                      console.error("Error applying buttonVariants:", error);
+                                      return ""; // Fallback className
+                                    }
+                                  })()}
+                                >
                                   Delete
                                 </AlertDialogAction>
                               </AlertDialogFooter>
